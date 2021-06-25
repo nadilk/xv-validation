@@ -1,8 +1,9 @@
-import XVRule from "@/xv-validation/XVRule";
-import callOrValue from "@/xv-validation/utils/callOrGetValue";
+import XVRule from "../XVRule";
+import callOrValue from "../utils/callOrGetValue";
+import isNotEmpty from "../utils/isNotEmpty";
 
-export default (condition) => new XVRule('required_if', (validationData) => {
+export default (condition) => new XVRule("required_if", (validationData) => {
     let {target: {value}, rule: {args: [condition]}} = validationData;
     return !callOrValue(condition,validationData)
-        || (value !== null && value !== undefined && value !== '')
+        || isNotEmpty(value);
 }, [condition], {mandatory: condition});

@@ -1,6 +1,13 @@
-import XVRule from "@/xv-validation/XVRule";
+import {getValueByPath, recoverPathBySample} from "../utils/objectTravers";
+import XVRule                                from "../XVRule";
 
-const inArrayValidation = ({target: {value},rule: {args: [values]}}) => values.includes(value);
+const inArrayValidation = ({target: {value, path}, rule: {args: [arrayPath]}, context}) => {
+    const checkArr = getValueByPath(context.getModel(), recoverPathBySample(arrayPath, path), null);
+    if (Array.isArray(checkArr)) {
+        return checkArr.includes(value);
+    }
+    return false;
+};
 
 
-export default (values) => new XVRule('in_array', inArrayValidation, [values]);
+export default (arrayPath) => new XVRule("in_array", inArrayValidation, [arrayPath]);

@@ -1,8 +1,8 @@
-import XValidator from "./XValidator";
-import XVContext from "./XVContext";
-import XVRule from "./XVRule";
+import XValidator      from "./XValidator";
+import XVContext       from "./XVContext";
+import XVRule          from "./XVRule";
 import XValidatePlugin from "./vue/XValidatePlugin";
-import * as rules from './rules';
+import * as rules      from "./rules";
 
 if (!module || !module.exports) {
     window.XValidator = XValidator;
@@ -10,12 +10,10 @@ if (!module || !module.exports) {
     window.XVRule = XVRule;
     window.XValidatePlugin = XValidatePlugin;
     window.XV_rules = rules;
-} else {
-    module.exports =
-        {
-            XValidator,
-            XVContext,
-            XVRule,
-            XValidatePlugin
-        };
 }
+export {
+    XValidator,
+    XVContext,
+    XVRule,
+    XValidatePlugin
+};

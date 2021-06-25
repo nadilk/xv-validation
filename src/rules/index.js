@@ -1,28 +1,42 @@
-import compared from "@/xv-validation/rules/compared";
-import date from "@/xv-validation/rules/date";
-import date_before from "@/xv-validation/rules/date_before";
-import if_typeof from "@/xv-validation/rules/if_typeof";
-import in_array from "@/xv-validation/rules/in_array";
-import max from "@/xv-validation/rules/max";
-import min from "@/xv-validation/rules/min";
-import name from "@/xv-validation/rules/name";
-import regex from "@/xv-validation/rules/regex";
-import required from "@/xv-validation/rules/required";
-import required_if from "@/xv-validation/rules/required_if";
-import validate_if from "@/xv-validation/rules/validate_if";
+import compare            from "./compare";
+import date               from "./date";
+import date_before        from "./date_before";
+import digits             from "./digits";
+import digits_between     from "./digits_between";
+import in_array           from "./in_array";
+import in_list            from "./in_list";
+import max                from "./max";
+import min                from "./min";
+import name               from "./name";
+import not_in_list        from "./not_in_list";
+import regex              from "./regex";
+import required           from "./required";
+import required_if        from "./required_if";
+import required_with      from "./required_with";
+import required_without   from "./required_without"
+import touches            from "./touches";
+import validate_if        from "./validate_if";
+import validate_if_typeof from "./validate_if_typeof";
 
 export {
-    compared,
+    compare,
     date,
     date_before,
-    if_typeof,
+    digits,
+    digits_between,
     in_array,
+    in_list,
     max,
     min,
     name,
+    not_in_list,
     regex,
     required,
     required_if,
-    validate_if
+    required_with,
+    required_without,
+    touches,
+    validate_if,
+    validate_if_typeof
 }
 

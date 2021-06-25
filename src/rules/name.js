@@ -1,3 +1,3 @@
-import XVRule from "@/xv-validation/XVRule";
+import XVRule from "../XVRule";
 
-export default (name) => new XVRule('_field_name', () => true, [name]);
+export default (name) => new XVRule("_field_name", () => true, [name]);

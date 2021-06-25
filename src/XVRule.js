@@ -1,17 +1,18 @@
-import isAsyncFunc from "@/xv-validation/utils/isAsyncFunc";
-import callOrValue from "@/xv-validation/utils/callOrGetValue";
+import isAsyncFunc from "./utils/isAsyncFunc";
+import callOrValue from "./utils/callOrGetValue";
 
 class XVRule {
+
+    validator;
     name;
     args;
     path;
     options;
-    validator;
 
     constructor(name, validator, args, options) {
         this.name = name;
         this.validator = validator;
-        this.args = args || []
+        this.args = args || [];
         this.options = options || {};
     }
 
@@ -21,10 +22,19 @@ class XVRule {
     }
 
     isMandatory(validationData) {
-        return callOrValue(this.options.mandatory,validationData) || false
+        return callOrValue(this.options.mandatory, validationData) || false;
+    }
+
+    isAppliedToEmpty(validationData) {
+        return callOrValue(this.options.applyToEmpty, validationData) || this.isMandatory(validationData) || false;
+    }
+
+    async touchPaths(validationData) {
+        return callOrValue(this.options.touchPaths, validationData) || [];
     }
 
     async validate(target, context) {
+
         const validationData = {
             target,
             rule: this,
@@ -38,11 +48,11 @@ class XVRule {
             return validatorResult.filter(res => !res.valid);
         } else if (validatorResult === true) {
             return {valid: true}
-        } else if (validatorResult instanceof String) {
+        } else if (typeof validatorResult === "string") {
             return {valid: false, message: validatorResult}
         } else {
             return {
-                valid: false,
+                valid  : false,
                 message: this.getMessage(validationData)
             }
         }
@@ -55,7 +65,7 @@ class XVRule {
                 case "string":
                     return this.options.message;
                 case "function":
-                    return this.options.message(validationData)
+                    return this.options.message(validationData);
             }
         }
 

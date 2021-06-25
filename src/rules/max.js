@@ -1,4 +1,4 @@
-import XVRule from "@/xv-validation/XVRule";
+import XVRule from "../XVRule";
 
 const maxValidator = ({target:{value}, rule: {args: [max]}}) =>  {
     let valid;
@@ -10,4 +10,4 @@ const maxValidator = ({target:{value}, rule: {args: [max]}}) =>  {
     return valid;
 }
 
-export default (maxVal) => new XVRule('max', maxValidator, [maxVal]);
+export default (maxVal) => new XVRule("max", maxValidator, [maxVal]);

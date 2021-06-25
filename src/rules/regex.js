@@ -1,7 +1,7 @@
-import XVRule from "@/xv-validation/XVRule";
+import XVRule from "../XVRule";
 
 export default (regex,placeholder) => new XVRule(
-    'regex',
+    "regex",
     ({
          target: {value},
          rule: {

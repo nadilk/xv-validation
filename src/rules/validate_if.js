@@ -1,5 +1,5 @@
-import XVRule from "@/xv-validation/XVRule";
-import callOrValue from "@/xv-validation/utils/callOrGetValue";
+import XVRule from "../XVRule";
+import callOrValue from "../utils/callOrGetValue";
 
 const IfValidator = async (validationData) => {
     let {target, rule: {args: [condition, rules]}, context, rule} = validationData;
@@ -23,4 +23,4 @@ const IfValidator = async (validationData) => {
 };
 
 
-export default (condition, rules) => new XVRule('validate_if', IfValidator, [condition, rules]);
+export default (condition, rules) => new XVRule("validate_if", IfValidator, [condition, rules]);

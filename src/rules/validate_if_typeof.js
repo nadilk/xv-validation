@@ -1,4 +1,4 @@
-import XVRule from "@/xv-validation/XVRule";
+import XVRule from "../XVRule";
 
 const ifTypeofValidator = async ({target: {value}, rule: {args: [types, rules]}, context, rule, target}) => {
     if (types instanceof String)
@@ -21,4 +21,4 @@ const ifTypeofValidator = async ({target: {value}, rule: {args: [types, rules]},
 };
 
 
-export default (types, rules) => new XVRule('if_typeof', ifTypeofValidator, [types, rules]);
+export default (types, rules) => new XVRule("if_typeof", ifTypeofValidator, [types, rules]);

@@ -1,4 +1,4 @@
-import XVContext from "@/xv-validation/XVContext";
+import XVContext from "../XVContext";
 
 export default {
     install: (app) => {
@@ -6,7 +6,7 @@ export default {
         app.config.globalProperties.$xv_shared = {};
 
         app.mixin({
-            data: function () {
+            data   : function () {
                 return {_xvalidate: {}}
             },
             methods: {
@@ -18,11 +18,14 @@ export default {
                     return this._xvalidate[name] || this.$xv_shared[name] || null;
                 },
                 $xv_validate(path, context) {
-
-                    this.$xv_getContextByName(context)?.validate(path);
+                    const ctx = this.$xv_getContextByName(context);
+                    if (ctx)
+                        ctx.validate(path);
                 },
                 $xv_resetValidation(path, context) {
-                    this.$xv_getContextByName(context)?.resetErrors(path);
+                    const ctx = this.$xv_getContextByName(context);
+                    if (ctx)
+                        ctx.resetErrors(path);
                 },
                 $xv_create(name, rules, getModel, share = false) {
                     this._xvalidate[name] = new XVContext({
@@ -34,21 +37,39 @@ export default {
                         this.$xv_shared[name] = this._xvalidate[name];
                     }
                 },
-                $xv_errors(attr, context) {
-                    const allErrors = this.$xv_getContextByName(context)?.errors;
-                    return allErrors?.filter(e => e.target.path.startsWith(attr));
+                $xv_errors(attr, context, all) {
+                    const ctx = this.$xv_getContextByName(context);
+                    if (ctx) {
+                        const allErrors = ctx.errors;
+                        return allErrors.filter(e => e.target.path.startsWith(attr) && (e.show || all));
+                    }
+                    return null;
+                },
+
+                $xv_validated(attr, context) {
+                    const ctx = this.$xv_getContextByName(context);
+                    if (ctx) {
+                        return ctx.validator.validated.some(val => val.startsWith(attr));
+                    }
+                    return null;
                 },
                 $xv_rules(attr, context) {
-                    return this.$xv_getContextByName(context)?.validator.getRulesForPath(attr, true);
+                    const ctx = this.$xv_getContextByName(context);
+                    if (ctx) {
+                        return ctx.validator.getRulesForPath(attr, true);
+                    }
                 },
                 $xv_fieldName(attr, context) {
-                    return this.$xv_getContextByName(context)?.getFieldNameFor(attr);
+                    const ctx = this.$xv_getContextByName(context);
+                    if (ctx) {
+                        return ctx.getFieldNameFor(attr);
+                    }
                 },
                 $xv_fieldData(attr, context) {
                     context = context || this.$xv_getDefaultContextName();
                     return {
-                        field: this.$xv_fieldName(attr, context),
-                        rules: this.$xv_rules(attr, context),
+                        field : this.$xv_fieldName(attr, context),
+                        rules : this.$xv_rules(attr, context),
                         errors: this.$xv_errors(attr, context)
                     }
                 }

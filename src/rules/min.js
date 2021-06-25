@@ -1,4 +1,4 @@
-import XVRule from "@/xv-validation/XVRule";
+import XVRule from "../XVRule";
 
 const minValidator = ({target:{value}, rule: {args: [min]}}) => {
     let valid;
@@ -10,4 +10,4 @@ const minValidator = ({target:{value}, rule: {args: [min]}}) => {
     return valid;
 }
 
-export default (minVal) => new XVRule('min', minValidator, [minVal]);
+export default (minVal) => new XVRule("min", minValidator, [minVal]);

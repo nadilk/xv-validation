@@ -1,5 +1,6 @@
-import XVRule from "@/xv-validation/XVRule";
+import XVRule from "../XVRule";
+import isNotEmpty from "../utils/isNotEmpty";
 
-export default () => new XVRule('required', ({target: {value}}) => {
-    return value !== null && value !== undefined && (typeof value !== 'string' || value.length > 0)
+export default () => new XVRule("required", ({target: {value}}) => {
+    return isNotEmpty(value);
 }, [], {mandatory:true});
