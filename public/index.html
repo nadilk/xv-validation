@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>Test</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+
+<div class="container">
+
+</div>
+
+<script src="/dist/xv.validation.js"></script>
+<script>
+    let testModel = {
+        a: 1,
+        b: null
+    };
+
+    let rules = {
+        a:[XV_rules.required()],
+        b:[XV_rules.required()]
+    }
+
+    let ctx = new XVContext({
+        name: 'test',
+        getModel: () => testModel,
+        rules
+    });
+
+    ctx.validate();
+    console.log(ctx);
+</script>
+</body>
+</html>
